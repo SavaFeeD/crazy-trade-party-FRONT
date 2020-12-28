@@ -1,30 +1,59 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div class="app">
+    <nav class="container-fluid">
+      <div class="d-flex justify-content-between">
+        <section>
+          <router-link
+              tag="a"
+              :to="{ path: 'Home' }"
+          >Home</router-link> |
+          <router-link
+              tag="a"
+              :to="{ path: 'Market' }"
+          >Market</router-link>
+        </section>
+
+        <section v-if="user !== ''">
+          <router-link tag="a"
+                       :to="{ path: 'Profile', params: { id: user.id } }"
+          >Profile</router-link>
+        </section>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <router-view/>
+    </div>
   </div>
-  <router-view/>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+<script>
+export default {
+  data: () => ({
+    user: ''
+  }),
+  mounted() {
+    if (localStorage.user) this.user = localStorage.user;
   }
+}
+</script>
+
+
+<style lang="scss">
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~yorha/dist/yorha.min.css';
+@import '~bootstrap-vue/dist/bootstrap-vue.css';
+
+.body{
+  margin: 0!important;
+  padding: 0!important;
+  width: 100%;
+  //min-height: 100vh;
+  //background: url("assets/bg.png") top left fixed no-repeat!important;
+  //background-size: cover;
+}
+.app{
+  width: 100%;
+  padding: 0 80px;
 }
 </style>
