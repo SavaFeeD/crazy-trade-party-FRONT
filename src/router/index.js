@@ -12,9 +12,38 @@ const routes = [
     component: () => import('../views/Market.vue')
   },
   {
-    path: '/profile/:id',
+    path: '/wishlist/:slug',
+    name: 'Wishlist',
+    component: () => import('../views/Wishlist.vue')
+  },
+  {
+    path: '/profile/:slug',
     name: 'Profile',
-    component: () => import('../views/Profile.vue')
+    component: () => import('../views/Profile.vue'),
+    children: [
+      {
+        path: 'info',
+        component: () => import('../views/My_profile.vue')
+      },
+      {
+        path: 'settings',
+        component: () => import('../views/Settings.vue')
+      },
+      {
+        path: 'exit',
+        component: () => import('../views/Exit.vue')
+      }
+    ]
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/Login.vue')
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: () => import('../views/Register.vue')
   }
 ]
 
