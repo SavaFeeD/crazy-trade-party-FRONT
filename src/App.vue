@@ -5,7 +5,7 @@
         <section>
           <router-link
               tag="a"
-              :to="{ path: 'Home' }"
+              to="/"
           >Home</router-link> |
           <router-link
               tag="a"
