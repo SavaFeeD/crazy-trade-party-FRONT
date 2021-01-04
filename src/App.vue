@@ -1,39 +1,47 @@
 <template>
   <div class="app">
     <nav class="container-fluid">
+
+      <a href="/" class="logo">
+        <img src="./assets/Crazy_logo.png" alt="logo">
+      </a>
+
       <div class="d-flex justify-content-between m-3">
         <blockquote class="d-flex full">
           <section class="d-flex flex-row">
-            <router-link to="/" active-class="active">
-              <button><cite>Home</cite></button>
+            <router-link to="/" active-class="active" class="up_menu">
+              <button><cite>HOME</cite></button>
             </router-link>
 
-            <router-link to="/market" active-class="active">
-              <button><cite>Market</cite></button>
+            <router-link to="/market" active-class="active" class="up_menu">
+              <button><cite>MARKET</cite></button>
             </router-link>
 
             <router-link
               v-if="user.slug !== undefined"
+              class="up_menu"
               :to="'/wishlist/'+user.slug"
               active-class="active">
-              <button><cite>Wishlist</cite></button>
+              <button><cite>WISHLIST</cite></button>
             </router-link>
           </section>
         </blockquote>
 
         <blockquote class="d-flex denature">
           <section v-if="user.slug !== undefined">
-            <router-link :to="'/profile/'+user.slug+'/info'" active-class="active">
-              <MiniProfile :user="user"></MiniProfile>
+            <router-link :to="'/profile/'+user.slug+'/info'" id="profile_href" active-class="active">
+              <MiniProfile :user="user" :is_me="true"></MiniProfile>
             </router-link>
           </section>
-          <section v-else class="d-flex">
-            <router-link to="/register" active-class="active" class="pulse _green">
-              <button><cite>Sing Up</cite></button>
-            </router-link>
-            <router-link to="/login" active-class="active" class="pulse _red">
-              <button><cite>Sing In</cite></button>
-            </router-link>
+          <section v-else class="d-flex align-items-center pulse _green">
+              <cite class="login">
+                <btn_ARoute :btn="{
+                  name: 'Sing In',
+                  path: '/login',
+                  wrap_class: 'small',
+                  btn_b: 'justify-content-center'
+                }"></btn_ARoute>
+              </cite>
           </section>
         </blockquote>
       </div>
@@ -47,19 +55,33 @@
 
 <script>
 import MiniProfile from '@/components/mini-profile'
+import btn_ARoute from "./components/btn_ARoute";
 
 export default {
   data: () => ({
     user: {}
   }),
   components: {
-    MiniProfile
+    MiniProfile,
+    btn_ARoute
   },
   mounted() {
+    let menu = document.querySelectorAll('.up_menu')
+    menu.forEach((el) => {
+      el.addEventListener('click', () => {
+        setTimeout(() => {
+          if (document.querySelector('#profile_href')){
+            document.querySelector('#profile_href').className = ''
+          }
+        }, 100)
+      })
+    })
+
     let user = {
       name: 'SavaFeeD',
       slug: 'savafeed',
-      id: 0
+      id: 0,
+      crazy_coins: 100
     }
     localStorage.user = JSON.stringify(user)
 
@@ -78,13 +100,28 @@ export default {
   margin: 0!important;
   padding: 0!important;
   width: 100%;
-  //min-height: 100vh;
-  //background: url("assets/bg.png") top left fixed no-repeat!important;
-  //background-size: cover;
+  min-height: 100vh;
+  background: url("assets/bg.png") top left fixed no-repeat!important;
+  background-size: cover;
 }
 .app{
   width: 100%;
   padding: 0 100px;
+}
+nav{
+  position: relative;
+}
+
+nav .logo{
+  position: absolute;
+  left: -70px;
+  top: 5px;
+}
+nav .logo img{
+  width: 50px;
+}
+button:not(:disabled), .button{
+  padding: .3rem;
 }
 cite{
   padding-left: 2rem!important;
@@ -190,7 +227,6 @@ blockquote.denature:before{
 .pulse._green cite:before{
   animation: pulse_green 2s infinite;
 }
-.pulse:hover cite:before,
 .active cite:before{
   animation: none;
 }
@@ -201,26 +237,23 @@ blockquote.denature:before{
     box-shadow: 0 0 0 0 #28a745;
   }
   70% {
-    -moz-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
-    box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+    -moz-box-shadow: 0 0 0 6px rgba(204,169,44, 0);
+    box-shadow: 0 0 0 6px rgba(204,169,44, 0);
   }
   100% {
     -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
     box-shadow: 0 0 0 0 rgba(204,169,44, 0);
   }
 }
-@keyframes pulse_red {
-  0% {
-    -moz-box-shadow: 0 0 0 0 #ffc107ad;
-    box-shadow: 0 0 0 0 #ffc107;
-  }
-  70% {
-    -moz-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
-    box-shadow: 0 0 0 10px rgba(204,169,44, 0);
-  }
-  100% {
-    -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
-    box-shadow: 0 0 0 0 rgba(204,169,44, 0);
-  }
+
+
+cite{
+  font-style: normal!important;
+}
+
+cite.login:before{
+  top: calc(50% - 8px);
+  left: 77px;
+  z-index: 500;
 }
 </style>

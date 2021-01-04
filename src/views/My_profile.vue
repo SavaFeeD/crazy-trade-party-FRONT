@@ -1,6 +1,6 @@
 <template>
   <figure>
-    <figcaption>My profile</figcaption>
+    <figcaption>Profile info</figcaption>
     <div>
       <p>{{ user.name }}</p>
       <hr>
@@ -12,6 +12,7 @@
 <script>
 export default {
   data: () => ({
+    name: 'My_profile',
     user: {
       slug: ''
     }

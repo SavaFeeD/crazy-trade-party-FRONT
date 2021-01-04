@@ -2,38 +2,21 @@
   <div class="profile">
     <h1 class="m-4">Profile</h1>
     <div class="container">
-      <div class="row">
-        <section class="col-4 o-cursor">
-          <blockquote class="cursor-wrap">
-            <img src="../assets/cursor.svg" class="cursor" alt="cursor">
-            <ul class="d-flex flex-column">
-              <router-link
-                  to="info"
-                  active-class="active"
-                  @mouseover="liMouse"
-                  @mouseout="liMouseOut">
-                  <button><cite>My profile</cite></button>
-              </router-link>
-              <router-link
-                  to="settings"
-                  active-class="active"
-                  @mouseover="liMouse"
-                  @mouseout="liMouseOut">
-                  <button><cite>Settings</cite></button>
-              </router-link>
-              <router-link
-                  to="exit"
-                  active-class="active"
-                  @mouseover="liMouse"
-                  @mouseout="liMouseOut">
-                  <button><cite>Exit</cite></button>
-              </router-link>
-            </ul>
-          </blockquote>
+      <div class="row" :class="{ 'd-flex justify-content-center': !Me }">
+        <section class="col-4 o-cursor" v-if="Me">
+          <Arrow_menu :list_route="list_route" :options="options"></Arrow_menu>
         </section>
 
-        <section class="col-8">
-          <router-view/>
+        <section class="col-8" v-if="Me">
+          <transition name="update_page">
+            <router-view/>
+          </transition>
+        </section>
+        <section class="col-8 d-flex flex-column" v-else>
+          <div class="m-p-wrap">
+            <MiniProfile :user="user" :is_me="false"></MiniProfile>
+          </div>
+          <My_profile></My_profile>
         </section>
 
       </div>
@@ -42,86 +25,123 @@
 </template>
 
 <script>
+import Arrow_menu from '@/components/arrow_menu'
+import My_profile from "./My_profile";
+import MiniProfile from '@/components/mini-profile'
+
 export default {
   data: () => ({
     user: {
-      id: null,
+      id: 0,
       slug: '',
-      name: 'Test Data'
+      name: 'Undefined',
+      crazy_coins: 100
+    },
+    me_id: '',
+    list_route: [
+      {
+        path: 'info',
+        name: 'Profile info'
+      },
+      {
+        path: 'settings',
+        name: 'Settings'
+      },
+      {
+        path: 'exit',
+        name: 'Exit'
+      },
+    ],
+    options: {
+      profile: true,
+      active_class: 'active'
     }
   }),
-  methods: {
-    liMouse(e) {
-      let li = e.target
-      let o = document.querySelector('.o-cursor')
-      let t = li.getBoundingClientRect().y - o.getBoundingClientRect().y + 10
-      if (li.childNodes[0].tagName === undefined) t -= 10
-      let cursor = document.querySelector('.cursor')
-      cursor.style.top = `${t}px`;
-    },
-    liMouseOut() {
-      let li = document.querySelector('.o-cursor .active')
-      let o = document.querySelector('.o-cursor')
-      let t = li.getBoundingClientRect().y - o.getBoundingClientRect().y + 10
-      let cursor = document.querySelector('.cursor')
-        cursor.style.top = `${t}px`;
-    }
+  components: {
+    Arrow_menu,
+    My_profile,
+    MiniProfile
   },
   created() {
     this.user.slug = this.$route.params.slug
+    if (localStorage.user) {
+      let me_id = JSON.parse(localStorage.user);
+      this.me_id = me_id.id
+    }
   },
-  mounted() {
-    this.liMouseOut()
+  computed:{
+    Me() {
+      return this.me_id === this.user.id
+    }
   },
-  updated() {
-    this.liMouseOut()
-  }
 }
 </script>
 
 <style scoped>
-button:hover cite::before{
-  background: #d4d2b4!important;
-}
-ul{
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-ul a:not(:last-child):not(:first-child){
-  margin: 17px 0;
-  width: 100%;
-}
-ul a *{
-  width: 90%;
-  align-items: flex-start;
-  text-align: left;
-}
-ul a:hover *, ul a.active *{
-  width: 100%;
-}
-ul a{
-  margin: 0;
-  width: 90%!important;
-}
-blockquote{
-  margin-top: 0!important;
-  margin-bottom: 0!important;
-  padding-bottom: 0!important;
-  padding-top: 0!important;
-}
-.cursor-wrap{
-  position: relative;
-}
-.cursor{
-  position: absolute;
-  width: 30px;
 
-  top: 10px;
-  left: -30px;
-  transition: top ease-in-out 0.3s;
+.m-p-wrap{
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+  min-height: 65px;
+  align-items: center;
+  transform: translateX(25px);
 }
-blockquote:before {
-  left: -2.3rem;
+
+.update_page-enter-active{
+  position: relative;
+  overflow: hidden;
+  animation: update_page_low .5s;
+}
+
+.update_page-enter-active:before{
+  content: '';
+  position: absolute;
+  left: -100%;
+  top: 50px;
+  width: 100%;
+  height: 100%;
+  background: #454138;
+  animation: update_page_before .5s;
+  z-index: 1000;
+}
+
+@keyframes update_page_low {
+  0% {
+    opacity: 1;
+  }
+}
+@keyframes update_page {
+  0% {
+    background: #dcd8c0;
+  }
+  10% {
+    background: #bab5a1;
+  }
+  20% {
+    background: #dcd8c0;
+  }
+  30% {
+    background: #bab5a1;
+  }
+  40% {
+    background: #dcd8c0;
+  }
+  100% {
+    background: #dcd8c0;
+  }
+}
+@keyframes update_page_before {
+  0% {
+    left: -100%;
+  }
+  50%{
+    left: 0;
+    opacity: .7;
+  }
+  100%{
+    opacity: 0;
+    display: none;
+  }
 }
 </style>

@@ -23,6 +23,7 @@ const routes = [
     children: [
       {
         path: 'info',
+        name: 'My_profile',
         component: () => import('../views/My_profile.vue')
       },
       {
