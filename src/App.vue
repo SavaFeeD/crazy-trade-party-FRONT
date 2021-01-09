@@ -6,7 +6,7 @@
         <img src="./assets/Crazy_logo.png" alt="logo">
       </a>
 
-      <div class="d-flex justify-content-between m-3">
+      <div class="d-flex justify-content-between align-items-center m-3">
         <blockquote class="d-flex full">
           <section class="d-flex flex-row">
             <router-link to="/" active-class="active" class="up_menu">
@@ -47,7 +47,9 @@
       </div>
     </nav>
 
-    <div class="container-fluid">
+    <img src="./assets/line.svg" class="disign_line" alt="line">
+
+    <div class="container-fluid mt-6">
       <router-view/>
     </div>
   </div>
@@ -196,11 +198,12 @@ blockquote:before {
 }
 nav blockquote.full {
   width: 100%;
+  margin: 0!important;
 }
 nav blockquote{
-  background: #dcd8c075;
+  //background: #dcd8c075;
   margin-right: 70px;
-  box-shadow: 0.1em 0.1em 0.1em 0 #bab5a1;
+  //box-shadow: 0.1em 0.1em 0.1em 0 #bab5a1;
 }
 nav blockquote.full .active button{
   background: #8a8676;
@@ -255,5 +258,21 @@ cite.login:before{
   top: calc(50% - 8px);
   left: 77px;
   z-index: 500;
+}
+
+.app{
+  position: relative;
+}
+
+.disign_line{
+  position: absolute;
+  top: 85px;
+  left: 0;
+  width: 100vw;
+  opacity: .6;
+}
+
+.mt-6{
+  margin-top: 4.5rem;
 }
 </style>

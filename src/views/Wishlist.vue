@@ -1,11 +1,11 @@
 <template>
   <div class="wishlist">
     <h1>Wishlist</h1>
-    <div class="container mt-5 d-flex justify-content-center">
+    <div class="container mt-4 d-flex justify-content-center">
       <div class="scroll col-8">
-        <blockquote>
+        <div class="wrap">
           <product_line v-for="item in products" :item="item" :key="item.name"></product_line>
-        </blockquote>
+        </div>
       </div>
     </div>
   </div>
@@ -19,28 +19,38 @@ export default {
     products: [
       {
         name: 'Product 1',
-        desc: 'descdescdescdesc descdesc desc descdescdesc, descdesc.',
-        img: undefined
+        short_description: 'descdescdescdesc descdesc desc descdescdesc, descdesc.',
+        description: 'descdescdescdesc descdesc desc descdescdesc, descdesc. sc. descdescdescdesc desc sc. descdescdescdesc desc',
+        img: '../assets/Crazy_logo.png',
+        price: 100
       },
       {
         name: 'Product 2',
-        desc: 'descdescdescdesc descdesc desc descdescdesc, descdesc.',
-        img: undefined
+        short_description: 'descdescdescdesc descdesc desc descdescdesc, descdesc.',
+        description: 'descdescdescdesc descdesc desc descdescdesc, descdesc.',
+        img: '../assets/Crazy_logo.png',
+        price: 14450
       },
       {
         name: 'Product 3',
-        desc: 'descdescdescdesc descdesc desc descdescdesc, descdesc.',
-        img: undefined
+        short_description: 'descdescdescdesc descdesc desc descdescdesc, descdesc.',
+        description: 'descdescdesc, descdesc. descdescdescdesc descdesc desc descdescdesc, descdesc. descdescdescdesc descdesc desc descdescdesc, descdesc. desc',
+        img: '../assets/Crazy_logo.png',
+        price: 6460
       },
       {
         name: 'Product 3',
-        desc: 'descdescdescdesc descdesc desc descdescdesc, descdesc.',
-        img: undefined
+        short_description: 'descdescdescdesc descdesc desc descdescdesc, descdesc.',
+        description: 'descdescdescdesc descdesc desc descdescdesc, descdesc. descdescdescdesc descdesc desc ',
+        img: '../assets/Crazy_logo.png',
+        price: 4560
       },
       {
         name: 'Product 3',
-        desc: 'descdescdescdesc descdesc desc descdescdesc, descdesc.',
-        img: undefined
+        short_description: 'descdescdescdesc descdesc desc descdescdesc, descdesc.',
+        description: 'descdescdescdesc descdesc desc descdescdesc, descdesc. descdescdescdesc descdesc desc descdescdesc, descdesc. descdescdescdesc descdesc desc descdescdesc, descdesc.',
+        img: '../assets/Crazy_logo.png',
+        price: 1000
       },
     ]
   }),
@@ -52,13 +62,13 @@ export default {
 
 <style scoped>
 .scroll{
-
-}
-blockquote{
-  transform: translateX(-20px);
-}
-.scroll{
   max-height: 65vh;
   overflow-y: scroll;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+.wrap{
+  width: 100%!important;
 }
 </style>
