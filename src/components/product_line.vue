@@ -1,10 +1,14 @@
 <template>
   <article class="mt-3 ml-3">
     <figure>
-      <figcaption>
-        {{ item.name }}
-        <br>
-        <span>{{ item.price }}</span>
+      <figcaption class="d-flex flex-column">
+        <span>
+          {{ item.name }}
+        </span>
+        <span>
+          {{ item.price }}
+          <img src="../assets/crazy_coins.svg" alt="coin">
+        </span>
       </figcaption>
       <div>
         {{item.short_description}}
@@ -36,8 +40,7 @@ export default {
 
 <style scoped>
 article{
-  max-width: 650px;
-  width: 100%;
+  width: 31%;
   background: #dcd8c099;
   display: flex;
 }
@@ -49,16 +52,29 @@ figure > figcaption{
 }
 
 section{
-  padding: 20px;
+  padding: 10px;
 }
 .wrap-prev{
   overflow: hidden;
-  max-height: 250px;
+  max-height: 200px;
 }
 .prev_product{
   width: 100%;
   vertical-align: center;
   height: auto;
   background: #b3af9b61;
+}
+[alt="coin"]{
+  width: 25px;
+}
+figcaption{
+  font-size: 16px;
+}
+span:nth-child(2){
+  font-size: 14px;
+  margin-top: 5px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 </style>

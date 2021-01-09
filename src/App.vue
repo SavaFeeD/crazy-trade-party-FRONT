@@ -61,7 +61,23 @@ import btn_ARoute from "./components/btn_ARoute";
 
 export default {
   data: () => ({
-    user: {}
+    user: {},
+    footer: {
+      links: [
+        {
+          path: '/',
+          text: '1'
+        },
+        {
+          path: '/',
+          text: '2'
+        },
+        {
+          path: '/',
+          text: '3'
+        }
+      ]
+    }
   }),
   components: {
     MiniProfile,
@@ -274,5 +290,21 @@ cite.login:before{
 
 .mt-6{
   margin-top: 4.5rem;
+}
+
+.h-all{
+  min-height: 100vh;
+}
+
+footer{
+  background: #454138;
+  color: white;
+}
+footer:before{
+  content: '';
+  top: -.2rem;
+  bottom: -.2rem;
+  border: solid #454138;
+  border-width: .1rem 0;
 }
 </style>

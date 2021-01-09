@@ -1,11 +1,9 @@
 <template>
   <div class="wishlist">
     <h1>Wishlist</h1>
-    <div class="container mt-4 d-flex justify-content-center">
-      <div class="scroll col-8">
-        <div class="wrap">
-          <product_line v-for="item in products" :item="item" :key="item.name"></product_line>
-        </div>
+    <div class="d-flex flex-wrap w-100">
+      <div class="margin-wish d-flex flex-wrap">
+        <product_line v-for="item in products" :item="item" :key="item.name"></product_line>
       </div>
     </div>
   </div>
@@ -70,5 +68,8 @@ export default {
 }
 .wrap{
   width: 100%!important;
+}
+.margin-wish{
+  margin: auto;
 }
 </style>
