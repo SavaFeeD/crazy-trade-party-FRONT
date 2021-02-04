@@ -14,7 +14,7 @@
         </section>
         <section class="col-8 d-flex flex-column" v-else>
           <div class="m-p-wrap">
-            <MiniProfile :user="user" :is_me="false"></MiniProfile>
+            <MiniProfile :user="user" :is_me="Me"></MiniProfile>
           </div>
           <My_profile></My_profile>
         </section>
@@ -29,14 +29,9 @@ import Arrow_menu from '@/components/arrow_menu'
 import My_profile from "./My_profile";
 import MiniProfile from '@/components/mini-profile'
 
+
 export default {
   data: () => ({
-    user: {
-      id: 0,
-      slug: '',
-      name: 'Undefined',
-      crazy_coins: 100
-    },
     me_id: '',
     list_route: [
       {
@@ -63,15 +58,19 @@ export default {
     MiniProfile
   },
   created() {
-    this.user.slug = this.$route.params.slug
+    this.$store.dispatch('getUser', this.$route.params.slug);
+
     if (localStorage.user) {
       let me_id = JSON.parse(localStorage.user);
-      this.me_id = me_id.id
+      this.me_id = me_id.id;
     }
   },
   computed:{
+    user() {
+      return this.$store.getters.getUser;
+    },
     Me() {
-      return this.me_id === this.user.id
+      return this.me_id === this.user.id;
     }
   },
 }

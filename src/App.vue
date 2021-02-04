@@ -28,8 +28,8 @@
         </blockquote>
 
         <blockquote class="d-flex denature">
-          <section v-if="user.slug !== undefined">
-            <router-link :to="'/profile/'+user.slug+'/info'" id="profile_href" active-class="active">
+          <section v-if="user.slug !== undefined" >
+            <router-link :to="'/profile/'+user.slug+'/info'" id="profile_href" active-class="active" :onclick="freshUser">
               <MiniProfile :user="user" :is_me="true"></MiniProfile>
             </router-link>
           </section>
@@ -52,12 +52,18 @@
     <div class="container-fluid mt-6">
       <router-view/>
     </div>
+
+    <div class="position-absolute" :class="{ 'error': _alert.type === 'error', 'message': _alert.type === 'message' }" v-if="_alert.flag"
+    @click="setAlertFlag(false)">
+      {{ _alert.message }}
+    </div>
   </div>
 </template>
 
 <script>
-import MiniProfile from '@/components/mini-profile'
+import MiniProfile from "@/components/mini-profile";
 import btn_ARoute from "./components/btn_ARoute";
+import { mapState } from "vuex"
 
 export default {
   data: () => ({
@@ -95,15 +101,18 @@ export default {
       })
     })
 
-    let user = {
-      name: 'SavaFeeD',
-      slug: 'savafeed',
-      id: 0,
-      crazy_coins: 100
-    }
-    localStorage.user = JSON.stringify(user)
-
     if (localStorage.user) this.user = JSON.parse(localStorage.user);
+  },
+  computed: {
+    ...mapState(['_alert'])
+  },
+  methods: {
+    setAlertFlag(value) {
+      this.$store.dispatch('setAlertFlag', value);
+    },
+    freshUser() {
+      return this.$store.dispatch('getUser', this.$route.params.slug);
+    }
   }
 }
 </script>
@@ -283,8 +292,8 @@ cite.login:before{
 .disign_line{
   position: absolute;
   top: 85px;
-  left: 0;
-  width: 100vw;
+  left: 0.5vw;
+  width: 98vw;
   opacity: .6;
 }
 

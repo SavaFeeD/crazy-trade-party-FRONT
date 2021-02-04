@@ -5,7 +5,7 @@
         <img :src="user.img" alt="profile">
       </div>
     </div>
-    <button><div>{{ user.name }}</div></button>
+    <button><div>{{ user.username }}</div></button>
     <div v-if="is_me" class="crazy_coin_wrap">
       <router-link
           to="/add_crazy_coin">

@@ -1,12 +1,12 @@
 <template>
   <div class="login">
-    <form action="" @submit.prevent="Validate">
+    <form action="" @submit.prevent="LoginUser">
       <fieldset>
         <legend><h1>Login</h1></legend>
         <div class="wrap_in_form">
           <p>
-            <label for="login">Login</label>
-            <input class="full" id="login" v-model="user.login" ref="login" type="text">
+            <label for="email">Email</label>
+            <input class="full" id="email" v-model="user.email" ref="email" type="email">
           </p>
           <p>
             <label for="password">Password</label>
@@ -32,26 +32,37 @@ export default {
   name: 'Login',
   data: () => ({
     user: {
-      login: '',
+      email: '',
       password: ''
     }
   }),
   methods: {
+    required(field) {
+      if (this.user[field].trim() === ''){
+        this.$refs[field].className = this.$refs[field].className.replace('success', '')
+        this.$refs[field].className += ' invalid'
+        this.status = false;
+      } else {
+        this.$refs[field].className = this.$refs[field].className.replace('invalid', '')
+        this.$refs[field].className += ' success'
+        this.status = true;
+
+      }
+    },
     Validate() {
-      if (this.user.login.trim() === ''){
-        this.$refs.login.className = this.$refs.login.className.replace('success', '')
-        this.$refs.login.className += ' invalid'
-      } else {
-        this.$refs.login.className = this.$refs.login.className.replace('invalid', '')
-        this.$refs.login.className += ' success'
-      }
-      if (this.user.password.trim() === ''){
-        this.$refs.password.className = this.$refs.password.className.replace('success', '')
-        this.$refs.password.className += ' invalid'
-      } else {
-        this.$refs.password.className = this.$refs.password.className.replace('invalid', '')
-        this.$refs.password.className += ' success'
-      }
+      Object.keys(this.user).forEach((item) => {
+        this.required(item);
+      });
+
+      return this.status;
+    },
+
+    LoginUser() {
+      let status = this.Validate();
+      let data = this.user;
+
+      if (status)
+        this.$store.dispatch('login', data);
     }
   }
 }

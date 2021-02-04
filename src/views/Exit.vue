@@ -4,7 +4,7 @@
     <div>
       <h3 class="center">Are you sure you want to log out?</h3>
       <div class="d-flex justify-content-center align-items-center">
-        <btn_ARoute :btn="btn"></btn_ARoute>
+        <btn_ARoute :btn="btn" :onclick="exit"></btn_ARoute>
       </div>
     </div>
   </figure>
@@ -30,6 +30,12 @@ export default {
   },
   created() {
     this.user.slug = this.$route.params.slug
+  },
+  methods: {
+    exit() {
+      let user = JSON.parse(localStorage.user);
+      return this.$store.dispatch('exit', user.id);
+    }
   }
 }
 </script>
