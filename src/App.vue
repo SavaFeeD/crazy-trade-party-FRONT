@@ -18,9 +18,9 @@
             </router-link>
 
             <router-link
-              v-if="user.slug !== undefined"
+              v-if="profile.id !== null"
               class="up_menu"
-              :to="'/wishlist/'+user.slug"
+              :to="'/wishlist/'+profile.slug"
               active-class="active">
               <button><cite>WISHLIST</cite></button>
             </router-link>
@@ -28,9 +28,9 @@
         </blockquote>
 
         <blockquote class="d-flex denature">
-          <section v-if="user.slug !== undefined" >
-            <router-link :to="'/profile/'+user.slug+'/info'" id="profile_href" active-class="active" :onclick="freshUser">
-              <MiniProfile :user="user" :is_me="true"></MiniProfile>
+          <section v-if="profile.id !== null" @click="this.$store.dispatch('to_profile')">
+            <router-link :to="'/profile/'+profile.slug+'/info'" id="profile_href" active-class="active">
+              <MiniProfile :user="profile" :is_me="true"></MiniProfile>
             </router-link>
           </section>
           <section v-else class="d-flex align-items-center pulse _green">
@@ -67,7 +67,6 @@ import { mapState } from "vuex"
 
 export default {
   data: () => ({
-    user: {},
     footer: {
       links: [
         {
@@ -101,17 +100,14 @@ export default {
       })
     })
 
-    if (localStorage.user) this.user = JSON.parse(localStorage.user);
+    this.$store.dispatch('isAuth');
   },
   computed: {
-    ...mapState(['_alert'])
+    ...mapState(['_alert', 'profile'])
   },
   methods: {
     setAlertFlag(value) {
       this.$store.dispatch('setAlertFlag', value);
-    },
-    freshUser() {
-      return this.$store.dispatch('getUser', this.$route.params.slug);
     }
   }
 }

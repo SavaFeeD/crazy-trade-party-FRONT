@@ -3,6 +3,12 @@ import axios from "axios"
 const host_api = 'http://127.0.0.1:8000/api';
 
 let actions = {
+  isAuth({commit}) {
+    if (localStorage.getItem('user') !== null)
+      commit('SET_STATE', ['user', JSON.parse(localStorage.getItem('user'))]);
+      commit('SET_STATE', ['profile', JSON.parse(localStorage.getItem('user'))]);
+  },
+
   getAllProducts({commit}) {
     axios.get(`${host_api}/products`).then(res => {
       commit('SET_STATE', ['products', res.data]);
@@ -47,7 +53,9 @@ let actions = {
       commit('SET_STATE', ['token', res.data.body.token]);
       commit('SET_ALERT', ['message', res.data.body.message]);
       commit('SET_STATE', ['user', res.data.body.user]);
+      commit('SET_STATE', ['profile', res.data.body.user]);
       localStorage.setItem('user', JSON.stringify(res.data.body.user));
+      localStorage.setItem('token', JSON.stringify(res.data.body.token));
     }).catch(error => {
       commit('SET_ALERT', ['error', error.response.data.message]);
     })
@@ -61,9 +69,29 @@ let actions = {
     });
   },
 
+  to_profile({commit}) {
+    commit('to_profile');
+  },
+
   exit({commit}, id) {
-    axios.get(`${host_api}/logout?id=${id}`).then(res => {
-      commit('SET_STATE', ['user', null]);
+    axios({
+      method: "get",
+      url: `${host_api}/logout?id=${id}`,
+      headers: {
+        'Content-type': "application/json; charset=UTF-8",
+        'Authorization': `Bearer ${localStorage.token.substr(1, localStorage.token.length-2)}`
+      }
+    }).then(res => {
+      commit('SET_STATE', ['user', {
+        id: null,
+        slug: '',
+        name: undefined
+      }]);
+      commit('SET_STATE', ['profile', {
+        id: null,
+        slug: '',
+        name: undefined
+      }]);
       commit('SET_ALERT', ['message', res.data.body.message]);
     }).catch(error => {
       commit('SET_ALERT', ['error', error.response.data.message]);
@@ -80,6 +108,12 @@ let actions = {
 
   setAlertFlag({commit}, value) {
     commit('SET_AlertFlag', value);
+  },
+
+  add_viewCount({commit}, id) {
+    axios.get(`${host_api}/product/add_viewCount?id=${id}`).catch(error => {
+      commit('SET_ALERT', ['error', error.response.data.message]);
+    });
   }
 }
 

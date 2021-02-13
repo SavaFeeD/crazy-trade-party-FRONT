@@ -8,6 +8,11 @@ export default createStore({
       slug: '',
       name: undefined
     },
+    profile: {
+      id: null,
+      slug: '',
+      name: undefined
+    },
     product: {
       name: ''
     },
@@ -32,6 +37,10 @@ export default createStore({
     },
     SET_AlertFlag(state, value) {
       state._alert.flag = value;
+    },
+
+    to_profile(state) {
+      state.user = state.profile;
     }
   },
 

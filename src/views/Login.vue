@@ -38,6 +38,7 @@ export default {
   }),
   methods: {
     required(field) {
+      console.log(this.$refs);
       if (this.user[field].trim() === ''){
         this.$refs[field].className = this.$refs[field].className.replace('success', '')
         this.$refs[field].className += ' invalid'

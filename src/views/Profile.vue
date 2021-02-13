@@ -1,5 +1,5 @@
 <template>
-  <div class="profile">
+  <div class="profile" v-if="user.id !== null && user.slug === $route.params.slug">
     <h1 class="m-4">Profile</h1>
     <div class="container">
       <div class="row" :class="{ 'd-flex justify-content-center': !Me }">
@@ -28,6 +28,7 @@
 import Arrow_menu from '@/components/arrow_menu'
 import My_profile from "./My_profile";
 import MiniProfile from '@/components/mini-profile'
+import {mapState} from "vuex";
 
 
 export default {
@@ -59,18 +60,15 @@ export default {
   },
   created() {
     this.$store.dispatch('getUser', this.$route.params.slug);
-
-    if (localStorage.user) {
-      let me_id = JSON.parse(localStorage.user);
-      this.me_id = me_id.id;
-    }
+    this.$store.dispatch('isAuth');
   },
   computed:{
+    ...mapState(['profile']),
     user() {
       return this.$store.getters.getUser;
     },
     Me() {
-      return this.me_id === this.user.id;
+      return this.profile.id === this.user.id;
     }
   },
 }
