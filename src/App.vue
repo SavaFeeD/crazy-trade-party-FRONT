@@ -100,7 +100,7 @@ export default {
       })
     })
 
-    this.$store.dispatch('isAuth');
+    // this.$store.dispatch('isAuth');
   },
   computed: {
     ...mapState(['_alert', 'profile'])

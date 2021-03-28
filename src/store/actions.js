@@ -1,5 +1,5 @@
 import axios from "axios"
-
+import router from "../router";
 const host_api = 'http://127.0.0.1:8000/api';
 
 let actions = {
@@ -34,7 +34,8 @@ let actions = {
         "Content-type": "application/json; charset=UTF-8"
       }
     }).then(res => {
-      commit('SET_STATE', ['message', res.data.body.message])
+      commit('SET_ALERT', ['message', res.data.body.message]);
+      router.push('/login');
     }).catch(error => {
       commit('SET_ALERT', ['error', error.response.data.message]);
     })
@@ -50,15 +51,20 @@ let actions = {
         'Content-type': "application/json; charset=UTF-8"
       }
     }).then(res => {
-      commit('SET_STATE', ['token', res.data.body.token]);
-      commit('SET_ALERT', ['message', res.data.body.message]);
-      commit('SET_STATE', ['user', res.data.body.user]);
-      commit('SET_STATE', ['profile', res.data.body.user]);
-      localStorage.setItem('user', JSON.stringify(res.data.body.user));
-      localStorage.setItem('token', JSON.stringify(res.data.body.token));
+      if (res.data.status) {
+        commit('SET_STATE', ['token', res.data.body.token]);
+        commit('SET_ALERT', ['message', res.data.body.message]);
+        commit('SET_STATE', ['user', res.data.body.user]);
+        commit('SET_STATE', ['profile', res.data.body.user]);
+        localStorage.setItem('user', JSON.stringify(res.data.body.user));
+        localStorage.setItem('token', JSON.stringify(res.data.body.token));
+      } else {
+        console.log(res.data.status)
+        commit('SET_ALERT', ['error', res.data.message]);
+      }
     }).catch(error => {
       commit('SET_ALERT', ['error', error.response.data.message]);
-    })
+    });
   },
 
   getUser({commit}, slug) {

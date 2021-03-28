@@ -64,6 +64,7 @@ export default {
 
       if (status)
         this.$store.dispatch('login', data);
+        // this.$store.dispatch('isAuth');
     }
   }
 }

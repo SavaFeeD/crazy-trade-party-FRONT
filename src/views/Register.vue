@@ -12,14 +12,17 @@
             <label for="email">Email</label>
             <input class="full" id="email" v-model="user.email" ref="email" type="email">
           </p>
-          <p>
-            <label for="password">Password</label>
-            <input class="full" id="password" v-model="user.password" ref="password" type="password">
-          </p>
-          <p>
-            <label for="password2">Confirm password</label>
-            <input class="full" id="password2" v-model="user.password2" ref="password2" type="password">
-          </p>
+          <div class="d-flex">
+            <p class="m-auto">
+              <label for="password">Password</label>
+              <input class="full" id="password" v-model="user.password" ref="password" type="password">
+            </p>
+            <p class="m-auto">
+              <label for="password2">Confirm password</label>
+              <input class="full" id="password2" v-model="user.password2" ref="password2" type="password">
+            </p>
+          </div>
+
           <div class="new_acc">
             <hr/>
             <router-link
@@ -47,6 +50,7 @@ export default {
     },
     status: true
   }),
+
   methods: {
     required(field) {
       if (this.user[field].trim() === ''){
@@ -90,6 +94,7 @@ export default {
         email: this.user.email,
         password: this.user.password,
       }
+
       if (status)
         this.$store.dispatch('register', data);
     }
