@@ -1,32 +1,27 @@
 <template>
   <div class="home">
-    <h1>Home</h1>
+    <h1>Open data market</h1>
     <div class="test-zone d-flex align-items-center">
-<!--      <btn_type_A v-for="item in test_btns" :btn="item" :key="item.name"></btn_type_A>-->
+      <div class="mt-5 w-100">
+        <slider :slide='general_slide_img' name_slider="general"></slider>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-// import btn_type_A from '@/components/btn_A';
+import slider from '@/components/slider'
 
 export default {
   name: 'Home',
   data: () => ({
-    // test_btns: [
-    //   {
-    //     name: 'Yes',
-    //     wrap_class: 'little',
-    //   },
-    //   {
-    //     name: 'No',
-    //     wrap_class: 'little',
-    //     margin: '0 0 0 40px'
-    //   }
-    // ]
+    general_slide_img: [
+      '../../img/home/slider/bigdata.png', '../../img/home/slider/line_chart.png',
+      '../../img/home/slider/morechart.png', '../../img/home/slider/excel_data.png'
+    ]
   }),
   components: {
-    // btn_type_A
+    slider
   }
 }
 </script>

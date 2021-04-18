@@ -14,7 +14,11 @@
             </router-link>
 
             <router-link to="/market" active-class="active" class="up_menu">
-              <button><cite>MARKET</cite></button>
+              <button><cite>DATA</cite></button>
+            </router-link>
+
+            <router-link to="/analytics" active-class="active" class="up_menu">
+              <button><cite>Analytics</cite></button>
             </router-link>
 
             <router-link
@@ -287,7 +291,7 @@ cite.login:before{
 
 .disign_line{
   position: absolute;
-  top: 85px;
+  top: 75px;
   left: 0.5vw;
   width: 98vw;
   opacity: .6;
@@ -311,5 +315,10 @@ footer:before{
   bottom: -.2rem;
   border: solid #454138;
   border-width: .1rem 0;
+}
+
+.denature{
+  margin: 0!important;
+  margin-bottom: 0!important;
 }
 </style>
