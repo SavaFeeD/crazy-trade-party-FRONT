@@ -54,7 +54,24 @@ const routes = [
   {
     path: '/analytics',
     name: 'Analytics',
-    component: () => import('../views/Analytics.vue')
+    component: () => import('../views/Analytics.vue'),
+    children: [
+      {
+        path: 'sendfile',
+        name: 'SendFile',
+        component: () => import('../views/Analytics_sendFile.vue')
+      },
+      {
+        path: 'selectparams',
+        name: 'SelectParams',
+        component: () => import('../views/Analytics_selectParams.vue')
+      },
+      {
+        path: 'viewstatistic',
+        name: 'ViewStatistic',
+        component: () => import('../views/Analytics_viewStatistic.vue')
+      }
+    ]
   }
 ]
 

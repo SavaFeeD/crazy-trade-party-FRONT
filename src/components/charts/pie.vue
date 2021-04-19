@@ -5,10 +5,10 @@
 </template>
 
 <script>
-import { Bar } from 'vue-chartjs'
+import { Pie } from 'vue-chartjs'
 
 export default {
-  extends: Bar,
+  extends: Pie,
   props: {
     chartdata: {
       values: {

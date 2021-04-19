@@ -1,36 +1,29 @@
 <template>
   <div class="analytics">
-    <h1>Data Analytics</h1>
-    <div class="test-zone d-flex align-items-center">
-      <canvas ref="canvas"></canvas>
-      <line-chart :chartdata="data" :options="options" />
-    </div>
+    <h1>Dataset Analyser</h1>
+      <div class="row mt-5" v-if="pathname == '/analytics'">
+        <router-link :to="{ name: 'SendFile' }" class='col-3' active-class="active">
+          <button><cite>File format CSV</cite></button>
+        </router-link>
+        <router-link :to="{ name: 'SendFile' }" class='col-3' active-class="active">
+          <button><cite>File format Excel</cite></button>
+        </router-link>
+      </div>
+      <router-view/>
   </div>
 </template>
 
 <script>
-import LineChart from '@/components/charts/LineChart'
-
 export default {
   name: 'Analytics',
   data: () => ({
-    data: {
-      labels: ["Monday", "Tuesday", "Wednesday"],
-      datasets: [
-        {
-          label: "# of Votes",
-          data: [12, 19, 3],
-          borderWidth: 1
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false
-    }
+    pathname: undefined
   }),
-  components: {
-    LineChart
+  mounted() {
+    this.pathname = window.location.pathname
+  },
+  updated() {
+    this.pathname = window.location.pathname
   }
 }
 </script>
