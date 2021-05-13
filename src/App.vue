@@ -9,16 +9,21 @@
       <div class="d-flex justify-content-between align-items-center m-3">
         <blockquote class="d-flex full">
           <section class="d-flex flex-row">
+
             <router-link to="/" active-class="active" class="up_menu">
               <button><cite>HOME</cite></button>
             </router-link>
 
-            <router-link to="/market" active-class="active" class="up_menu">
+            <router-link to="/market/all" active-class="active" class="up_menu">
               <button><cite>DATA</cite></button>
             </router-link>
 
             <router-link to="/analytics" active-class="active" class="up_menu">
-              <button><cite>Analytics</cite></button>
+              <button><cite>ANALYTICS</cite></button>
+            </router-link>
+
+            <router-link to="/rating" active-class="active" class="up_menu">
+              <button><cite>RATING</cite></button>
             </router-link>
 
             <router-link
@@ -28,6 +33,7 @@
               active-class="active">
               <button><cite>WISHLIST</cite></button>
             </router-link>
+
           </section>
         </blockquote>
 
@@ -57,9 +63,13 @@
       <router-view/>
     </div>
 
-    <div class="position-absolute" :class="{ 'error': _alert.type === 'error', 'message': _alert.type === 'message' }" v-if="_alert.flag"
+    <div class="position-fixed p-3 w-25 mb-3 alert-general d-flex justify-content-between align-items-center" :class="{ 'error': _alert.type === 'error', 'message': _alert.type === 'message' }" v-if="_alert.flag"
     @click="setAlertFlag(false)">
-      {{ _alert.message }}
+      <div class="d-flex align-items-center ml-3">
+        <i class="fas fa-bomb mr-2"></i>
+        {{ _alert.message }}
+      </div>
+      <i class="far fa-window-close ml-3"></i>
     </div>
   </div>
 </template>
@@ -71,27 +81,12 @@ import { mapState } from "vuex"
 
 export default {
   data: () => ({
-    footer: {
-      links: [
-        {
-          path: '/',
-          text: '1'
-        },
-        {
-          path: '/',
-          text: '2'
-        },
-        {
-          path: '/',
-          text: '3'
-        }
-      ]
-    }
   }),
   components: {
     MiniProfile,
     btn_ARoute
   },
+
   mounted() {
     let menu = document.querySelectorAll('.up_menu')
     menu.forEach((el) => {
@@ -104,7 +99,7 @@ export default {
       })
     })
 
-    // this.$store.dispatch('isAuth');
+    this.$store.dispatch('isAuth');
   },
   computed: {
     ...mapState(['_alert', 'profile'])
@@ -112,6 +107,12 @@ export default {
   methods: {
     setAlertFlag(value) {
       this.$store.dispatch('setAlertFlag', value);
+    },
+    isEmpty(obj) {
+      for (let key in obj) {
+        return false;
+      }
+      return true;
     }
   }
 }
@@ -122,6 +123,11 @@ export default {
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~yorha/dist/yorha.min.css';
 @import '~bootstrap-vue/dist/bootstrap-vue.css';
+
+.alert-general{
+  background: #dcd8c0c2;
+  cursor: pointer;
+}
 
 .body{
   margin: 0!important;
@@ -134,6 +140,8 @@ export default {
 .app{
   width: 100%;
   padding: 0 100px;
+  position: relative;
+  min-height: 90vh;
 }
 nav{
   position: relative;
@@ -320,5 +328,10 @@ footer:before{
 .denature{
   margin: 0!important;
   margin-bottom: 0!important;
+}
+
+.position-fixed{
+  position: fixed;
+  bottom: 0;
 }
 </style>

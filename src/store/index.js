@@ -16,12 +16,19 @@ export default createStore({
     product: {
       name: ''
     },
+    user_buy_product: false,
+    product_in_wishlist: false,
+    wl: {},
     products: null,
     _alert: {
       flag: false,
       message: null
     },
-    token: null
+    token: null,
+    data_anal: {},
+    market: {},
+    rating: {},
+    load_resource: false
   },
 
   mutations: {
@@ -41,12 +48,18 @@ export default createStore({
 
     to_profile(state) {
       state.user = state.profile;
+    },
+
+    SET_Market(state, data) {
+      state.market[data[0]] = data[1];
+    },
+    SET_Market_Product(state, data) {
+      state.market.products = data;
     }
   },
 
   getters: {
     getUser: state => state.user,
-    getProduct: state => state.product
   },
 
   actions

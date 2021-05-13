@@ -1,16 +1,18 @@
 <template>
-  <div class="error">
-    <h1>Error {{ error.code }}</h1>
-    <h2>{{ error.message }}</h2>
-    <img alt="Logo" src="../assets/Crazy_logo.png">
+  <div class="error w-100 d-flex flex-column justify-content-center align-items-center">
+    <img alt="Logo" src="../assets/Crazy_logo.png" class="mt-4">
+    <h1>Error 404</h1>
   </div>
 </template>
 
 <script>
 export default {
   name: 'Error',
-  props: {
-    error: Object
-  }
 }
 </script>
+
+<style scoped>
+img{
+  width: 100px;
+}
+</style>

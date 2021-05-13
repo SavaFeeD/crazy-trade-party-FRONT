@@ -60,7 +60,7 @@ a{
   transition: all .2s ease-in-out;
 }
 a:hover{
-  transform: scale(1.07);
+  transform: scale(1.02);
   background: #dcd8c0;
 }
 figure{

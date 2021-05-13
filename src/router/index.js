@@ -2,14 +2,36 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
+    path: '/:pathMatch(.*)*',
+    name: 'Error404',
+    component: () => import('../views/error.vue')
+  },
+  {
     path: '/',
     name: 'Home',
     component: () => import('../views/Home.vue')
   },
   {
+    path: '/new_dataset',
+    name: 'New_dataset',
+    component: () => import('../views/New_dataset.vue')
+  },
+  {
     path: '/market',
     name: 'Market',
-    component: () => import('../views/Market.vue')
+    component: () => import('../views/Market.vue'),
+    children: [
+      {
+        path: 'all',
+        name: 'All',
+        component: () => import('../views/Market_all.vue')
+      },
+      {
+        path: 'category/:id',
+        name: 'Category',
+        component: () => import('../views/Market_category.vue')
+      }
+    ]
   },
   {
     path: '/wishlist/:slug',
@@ -72,7 +94,12 @@ const routes = [
         component: () => import('../views/Analytics_viewStatistic.vue')
       }
     ]
-  }
+  },
+  {
+    path: '/rating',
+    name: 'Rating',
+    component: () => import('../views/Rating.vue')
+  },
 ]
 
 const router = createRouter({
