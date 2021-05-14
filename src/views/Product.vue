@@ -42,8 +42,8 @@
             <hr>
 
             <div v-if="checkprocess_buy">
-              <div v-if="isEmpty(profile)">
-                <a type="button" v-if="user_buy_product || product.body.product.price == 0 || product.body.product.creator.slug == profile.slug"
+              <div v-if="!isEmpty(profile)">
+                <a type="button" v-if="user_buy_product || product.body.product.price == 0 || product.body.creator.slug == profile.slug"
                   class="button w-100"
                   :href="product.body.product.dataset">
                     DOWNLOAD

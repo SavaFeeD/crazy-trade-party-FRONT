@@ -1,7 +1,7 @@
 import axios from "axios"
 import router from "../router"
-// const host_api = 'http://api.dgsava.beget.tech/api'
-const host_api = 'http://127.0.0.1:8000/api'
+const host_api = 'http://api.dgsava.beget.tech/api'
+// const host_api = 'http://127.0.0.1:8000/api'
 const host_anal = 'http://127.0.0.1:5000'
 
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
