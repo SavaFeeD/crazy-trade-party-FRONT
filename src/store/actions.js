@@ -1,5 +1,6 @@
 import axios from "axios"
 import router from "../router"
+// const host_api = 'http://api.dgsava.beget.tech/api'
 const host_api = 'http://127.0.0.1:8000/api'
 const host_anal = 'http://127.0.0.1:5000'
 
@@ -217,6 +218,7 @@ let actions = {
     axios.get(`${host_api}/buy/user/${data.user_slug}/${data.product_id}`)
     .then(res => {
       commit('SET_STATE', ['user_buy_product', res.data.body.check]);
+      commit('SET_STATE', ['checkprocess_buy', true]);
     }).catch(error => {
       commit('SET_ALERT', ['error', error.response.data.message]);
     });
@@ -226,6 +228,7 @@ let actions = {
     axios.get(`${host_api}/wl/user/${data.user_slug}/${data.product_id}`)
     .then(res => {
       commit('SET_STATE', ['product_in_wishlist', res.data.body.check]);
+      commit('SET_STATE', ['checkprocess_wl', true]);
     }).catch(error => {
       commit('SET_ALERT', ['error', error.response.data.message]);
     });
@@ -277,11 +280,13 @@ let actions = {
   },
 
   add_dataset({commit}, data) {
+    commit('SET_ALERT', ['message', 'Подождите ответа']);
     let formdata = new FormData()
     formdata.append('user_id', data.user_id)
     formdata.append('name', data.name)
     formdata.append('short_description', data.short_description)
     formdata.append('description', data.description)
+    formdata.append('price', data.price)
     formdata.append('img', data.img)
     formdata.append('dataset', data.dataset)
     axios({
@@ -301,6 +306,106 @@ let actions = {
       commit('SET_ALERT', ['error', error.response.data.message]);
     })
   },
+
+  getUserBuys({commit}, data) {
+    axios({
+      method: "get",
+      url: `${host_api}/buy/user/${data.slug}`,
+      headers: {
+        'Content-type': "application/json; charset=UTF-8",
+        'Authorization': `Bearer ${localStorage.token.substr(1, localStorage.token.length-2)}`
+      }
+    }).then(res => {
+      commit('SET_STATE', ['my_product', res.data.body.product_list]);
+      commit('SET_STATE', ['load_resource', true]);
+    }).catch(error => {
+      commit('SET_ALERT', ['error', error.response.data.message]);
+    });
+  },
+
+  getUserCreatedProduct({commit}, data) {
+    axios({
+      method: "get",
+      url: `${host_api}/product/user/${data.slug}`,
+      headers: {
+        'Content-type': "application/json; charset=UTF-8",
+        'Authorization': `Bearer ${localStorage.token.substr(1, localStorage.token.length-2)}`
+      }
+    }).then(res => {
+      commit('SET_STATE', ['my_product', res.data.body.product_list]);
+      commit('SET_STATE', ['load_resource', true]);
+    }).catch(error => {
+      commit('SET_ALERT', ['error', error.response.data.message]);
+    });
+  },
+
+  addCrazycoin({commit}, data) {
+    commit('SET_ALERT', ['message', "Запрос обрабатывается"]);
+    axios({
+      method: "get",
+      url: `${host_api}/user/add_coins/${data.user_id}/${data.add_value}`,
+      headers: {
+        'Content-type': "application/json; charset=UTF-8"
+      }
+    }).then(res => {
+      commit('SET_ALERT', ['message', res.data.body.message]);
+      commit('SET_STATE', ['user', res.data.body.user]);
+      commit('SET_STATE', ['profile', res.data.body.user]);
+      localStorage.setItem('user', JSON.stringify(res.data.body.user));
+    }).catch(error => {
+      console.log(error);
+      commit('SET_ALERT', ['error', error]);
+    });
+  },
+
+  buyProduct({commit}, data) {
+    commit('SET_ALERT', ['message', "Подождите ответа"]);
+    axios({
+      method: "post",
+      url: `${host_api}/buy/product`,
+      data: data.buy,
+      headers: {
+        'Content-type': "application/json; charset=UTF-8",
+        'Authorization': `Bearer ${localStorage.token.substr(1, localStorage.token.length-2)}`
+      }
+    }).then(res => {
+      commit('SET_ALERT', ['message', res.data.body.message]);
+      if (res.data.body.status) {
+        commit('SET_STATE', ['user', res.data.body.user]);
+        commit('SET_STATE', ['profile', res.data.body.user]);
+        localStorage.setItem('user', JSON.stringify(res.data.body.user));
+      }
+    }).catch(error => {
+      console.log(error);
+      commit('SET_ALERT', ['error', error.response.data.message]);
+    });
+
+    axios.get(`${host_api}/buy/user/${data.check.user_slug}/${data.check.product_id}`)
+    .then(res => {
+      commit('SET_STATE', ['user_buy_product', res.data.body.check]);
+    }).catch(error => {
+      commit('SET_ALERT', ['error', error.response.data.message]);
+    });
+  },
+
+  deleteProduct({commit}, data) {
+    commit('SET_ALERT', ['message', "Запрос обрабатывается"]);
+    axios({
+      method: "post",
+      url: `${host_api}/product/delete`,
+      data: data,
+      headers: {
+        'Content-type': "application/json; charset=UTF-8",
+        'Authorization': `Bearer ${localStorage.token.substr(1, localStorage.token.length-2)}`
+      }
+    }).then(res => {
+      commit('SET_ALERT', ['message', res.data.body.message]);
+    }).catch(error => {
+      console.log(error);
+      commit('SET_ALERT', ['error', "Датасет удален"]);
+    });
+  }
+
 }
 
 export default actions;

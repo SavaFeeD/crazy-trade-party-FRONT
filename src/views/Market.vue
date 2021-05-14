@@ -6,7 +6,7 @@
           <h1 v-if="!isEmpty(market.category)">{{ market.category.name }}</h1>
           <h1 v-else>MARKET</h1>
         </div>
-        <div v-if="user.id !== null">
+        <div v-if="profile.id !== null">
           <router-link to="/new_dataset" class="d-flex w-100">
             <button class="d-flex w-100 align-items-center"><i class="fas fa-plus-square ml-2 mr-2"></i>ADD DATASET</button>
           </router-link>
@@ -52,7 +52,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['market', 'load_resource', 'user'])
+    ...mapState(['market', 'load_resource', 'profile'])
   },
 
   components: {
@@ -73,6 +73,9 @@ h1 ~ p{
 
 .cat-menu{
   top: 30px;
+  max-height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .fix-cat{
   padding-top: 2px;

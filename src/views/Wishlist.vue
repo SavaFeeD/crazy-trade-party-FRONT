@@ -2,7 +2,7 @@
   <div class="wishlist">
     <h1>Wishlist</h1>
     <div class="d-flex flex-wrap" v-if="!isEmpty(wl)">
-      <product_line v-for="item in wl" :item="item" :key="item.name"></product_line>
+      <product_line v-for="item in wl" :item="item" :size="{big: false}" :key="item.name"></product_line>
     </div>
   </div>
 </template>

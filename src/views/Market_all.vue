@@ -2,7 +2,7 @@
   <div>
     <div v-if="load_resource">
       <div class="d-flex flex-wrap" v-if="market.products.length != 0">
-        <product_line v-for="item in market.products" :item="item" :key="item.name"></product_line>
+        <product_line v-for="item in market.products" :item="item" :size="{big: true}" :key="item.name"></product_line>
       </div>
       <div class="w-100 d-flex justify-content-center mt-3 align-items-center" v-else>
         <i class="far fa-folder-open"></i>

@@ -334,4 +334,34 @@ footer:before{
   position: fixed;
   bottom: 0;
 }
+
+
+::-webkit-scrollbar {
+    width: 5px; /* ширина для вертикального скролла */
+    height: 3px; /* высота для горизонтального скролла */
+    background-color: #d4d2b4;
+}
+
+/* ползунок скроллбара */
+::-webkit-scrollbar-thumb {
+    background-color: #454138de;
+    border-radius: 9em;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #454138de;
+}
+
+/* Стрелки */
+
+::-webkit-scrollbar-button:vertical:start:decrement {
+    background-color: #d4d2b4;
+    height: 1px!important;
+}
+
+::-webkit-scrollbar-button:vertical:end:increment {
+  background-color: #d4d2b4;
+  height: 1px!important; 
+}
+
 </style>

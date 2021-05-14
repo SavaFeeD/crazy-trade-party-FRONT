@@ -45,15 +45,27 @@ const routes = [
     children: [
       {
         path: 'info',
-        name: 'My_profile',
+        name: 'My_profile-info',
         component: () => import('../views/My_profile.vue')
       },
       {
         path: 'settings',
+        name: 'My_profile-settings',
         component: () => import('../views/Settings.vue')
       },
       {
+        path: 'product-buy',
+        name: 'My_profile-product_buy',
+        component: () => import('../views/My_product-buy.vue')
+      },
+      {
+        path: 'product-added',
+        name: 'My_profile-product_added',
+        component: () => import('../views/My_product-added.vue')
+      },
+      {
         path: 'exit',
+        name: 'My_profile-exit',
         component: () => import('../views/Exit.vue')
       }
     ]
@@ -99,6 +111,11 @@ const routes = [
     path: '/rating',
     name: 'Rating',
     component: () => import('../views/Rating.vue')
+  },
+  {
+    path: '/add_crazy_coin',
+    name: 'Add Crazycoin',
+    component: () => import('../views/Add_Crazycoin.vue')
   },
 ]
 

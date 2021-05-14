@@ -28,7 +28,10 @@ export default createStore({
     data_anal: {},
     market: {},
     rating: {},
-    load_resource: false
+    my_product: {},
+    load_resource: false,
+    checkprocess_buy: false,
+    checkprocess_wl: false
   },
 
   mutations: {

@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="`/product/${item.id}`" class="mt-3 ml-3">
+  <router-link :to="`/product/${item.id}`" class="mt-3 ml-3" :class='{"big" : size.big}'>
     <article>
       <figure>
         <figcaption class="d-flex flex-column">
@@ -18,7 +18,8 @@
 
       <section>
         <div class="wrap-prev">
-          <img src='../assets/Crazy_logo.png' :alt="item.name" class="prev_product">
+          <img :src='item.img' :alt="item.name" class="prev_product" v-if="item.img != null">
+          <img src='../assets/Crazy_logo.png' :alt="item.name" class="prev_product" v-else>
         </div>
       </section>
     </article>
@@ -35,7 +36,12 @@ export default {
         name: undefined,
         price: undefined,
         short_description: undefined,
-        img: undefined
+        img: undefined,
+      }
+    },
+    size: {
+      value: {
+        big: false
       }
     }
   },
@@ -54,6 +60,13 @@ article{
 }
 a{
   width: 31%!important;
+  background: #dcd8c099;
+  display: flex;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+}
+a.big{
+  width: 48%!important;
   background: #dcd8c099;
   display: flex;
   cursor: pointer;

@@ -18,10 +18,16 @@
               <input class="full" id="img" ref="img" type="file">
             </p>
           </div>
-          <p>
-            <label for="short_description">Short description</label>
-            <input class="full" id="short_description" v-model="dataset.short_description" ref="short_description" type="text">
-          </p>
+          <div class="d-flex mb-2">
+            <p class="m-auto">
+              <label for="short_description">Short description</label>
+              <input class="full" id="short_description" v-model="dataset.short_description" ref="short_description" type="text">
+            </p>
+            <p class="m-auto">
+              <label for="price">Price</label>
+              <input class="full" id="price" ref="price" v-model="dataset.price" type="number">
+            </p>
+          </div>
 
           <p>
             <label for="description">Description</label>
@@ -45,12 +51,13 @@ export default {
       name: '',
       short_description: '',
       description: '',
+      price: 0
     },
     status: true
   }),
 
   computed: {
-    ...mapState(['user'])
+    ...mapState(['profile'])
   },
 
   methods: {
@@ -96,7 +103,8 @@ export default {
         description: this.dataset.description,
         img: document.getElementById('img').files[0],
         dataset: document.getElementById('dataset').files[0],
-        user_id: this.user.id
+        user_id: this.profile.id,
+        price: this.dataset.price
       }
 
       if (status)

@@ -40,12 +40,16 @@ export default {
         name: 'Profile info'
       },
       {
-        path: 'settings',
-        name: 'Settings'
-      },
-      {
         path: 'exit',
         name: 'Exit'
+      },
+      {
+        path: 'product-buy',
+        name: 'Product buy'
+      },
+      {
+        path: 'product-added',
+        name: 'Product added'
       },
     ],
     options: {
