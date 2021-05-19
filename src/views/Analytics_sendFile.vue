@@ -1,6 +1,6 @@
 <template>
   <section class="d-flex flex-column align-items-center w-100">
-    <form class="d-flex flex-column align-items-center m-5" enctype="multipart/form-data">
+    <div class="form d-flex flex-column align-items-center m-5">
       <p>Load dataset using the file selection button</p>
       <input type="file" id="fileElem" accept=".csv" :onchange="() => {check_file = true; $refs.btn_route.disabled=false;}" @change="previewFiles">
       <div class="d-flex justyfy-content-center align-items-center w-100">
@@ -9,14 +9,14 @@
           Select Dataset
         </label>
 
-        <router-link :to="{ name: 'SelectParams' }" class='col-6 h-100 no-p' active-class="active" :onclick="() => sendFile()">
-          <button ref="btn_route">
+        <div class="col-6 h-100 no-p ml-3">
+          <button ref="btn_route" :onclick="() => sendFile()">
             <i class="fas fa-check-circle pl-2 pr-2"></i>
             Selected
           </button>
-        </router-link>
+        </div>
       </div>
-    </form>
+    </div>
   </section>
 </template>
 
@@ -57,7 +57,7 @@ export default {
 #fileElem {
   display: none;
 }
-form{
+.form{
   width: 600px!important;
 }
 

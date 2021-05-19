@@ -11,11 +11,11 @@
           <div class="d-flex mb-2">
             <p class="m-auto">
               <label for="dataset">Dataset</label>
-              <input class="full" id="dataset" ref="dataset_" type="file">
+              <input class="full" id="dataset" ref="dataset_" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
             </p>
             <p class="m-auto">
               <label for="img">Image</label>
-              <input class="full" id="img" ref="img" type="file">
+              <input class="full" id="img" ref="img" type="file" accept="image/*">
             </p>
           </div>
           <div class="d-flex mb-2">
@@ -25,7 +25,7 @@
             </p>
             <p class="m-auto">
               <label for="price">Price</label>
-              <input class="full" id="price" ref="price" v-model="dataset.price" type="number">
+              <input class="full" id="price" ref="price" v-model="price" type="number">
             </p>
           </div>
 
@@ -50,9 +50,9 @@ export default {
     dataset: {
       name: '',
       short_description: '',
-      description: '',
-      price: 0
+      description: ''
     },
+    price: 0,
     status: true
   }),
 
@@ -104,7 +104,7 @@ export default {
         img: document.getElementById('img').files[0],
         dataset: document.getElementById('dataset').files[0],
         user_id: this.profile.id,
-        price: this.dataset.price
+        price: this.price
       }
 
       if (status)

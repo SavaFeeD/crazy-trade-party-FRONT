@@ -361,7 +361,7 @@ footer:before{
 
 ::-webkit-scrollbar-button:vertical:end:increment {
   background-color: #d4d2b4;
-  height: 1px!important; 
+  height: 1px!important;
 }
 
 </style>

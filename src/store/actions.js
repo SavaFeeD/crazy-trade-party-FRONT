@@ -157,6 +157,7 @@ let actions = {
         }
         localStorage.anal_file = JSON.stringify(data);
         commit('SET_STATE', ['data_anal', res.data.body]);
+        router.push('/analytics/selectparams')
       } else {
         commit('SET_ALERT', ['error', res.data.message]);
       }

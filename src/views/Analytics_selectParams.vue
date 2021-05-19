@@ -222,9 +222,11 @@ export default {
   }),
 
   created() {
-    let anal_file_old = JSON.parse(localStorage.anal_file);
-    let count = 0
-    this.get_data(anal_file_old, count)
+    // let anal_file_old = JSON.parse(localStorage.anal_file);
+    // let count = 0
+    // this.get_data(anal_file_old, count)
+    let anal_file = JSON.parse(localStorage.anal_file);
+    this.$store.dispatch('analytics_get_info_dataset', anal_file);
   },
 
   computed: {
@@ -248,6 +250,7 @@ export default {
           type: param.type,
           data: []
         }
+
         param.data.forEach((col) => {
           _chart_.data.push(col)
         });
@@ -324,11 +327,10 @@ export default {
         case 'line':
           schema = {
             type: 'line',
-            param_type: 'xy',
-            data: {
-              x: '',
-              y: ''
-            }
+            param_type: 'max',
+            max_count: this.data_anal.columns_len,
+            all_columns: this.data_anal.all_columns.slice(),
+            data: []
           }
           break;
         case 'bar':
@@ -345,17 +347,17 @@ export default {
       this.chart_params.push(schema);
     },
 
-    get_data(anal_file_old, count) {
-      setTimeout(() => {
-        let anal_file_new = JSON.parse(localStorage.anal_file);
-        count++
-        if (anal_file_old != anal_file_new || count == 15) {
-          this.$store.dispatch('analytics_get_info_dataset', anal_file_new);
-        } else {
-          this.get_data(anal_file_old, count)
-        }
-      }, 200)
-    },
+    // get_data(anal_file_old, count) {
+    //   setTimeout(() => {
+    //     let anal_file_new = JSON.parse(localStorage.anal_file);
+    //     count++
+    //     if (anal_file_old != anal_file_new || count == 15) {
+    //       this.$store.dispatch('analytics_get_info_dataset', anal_file_new);
+    //     } else {
+    //       this.get_data(anal_file_old, count)
+    //     }
+    //   }, 200)
+    // },
 
     range(start, stop, step) {
       if (typeof stop == 'undefined') {
