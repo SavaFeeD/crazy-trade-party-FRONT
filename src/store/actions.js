@@ -1,7 +1,7 @@
 import axios from "axios"
 import router from "../router"
-const host_api = 'http://api.dgsava.beget.tech/api'
-// const host_api = 'http://127.0.0.1:8000/api'
+// const host_api = 'http://api.dgsava.beget.tech/api'
+const host_api = 'http://127.0.0.1:8000/api'
 const host_anal = 'http://127.0.0.1:5000'
 
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
@@ -72,10 +72,11 @@ let actions = {
         localStorage.setItem('token', JSON.stringify(res.data.body.token));
         router.push('/');
       } else {
-        commit('SET_ALERT', ['error', res.data.message]);
+        commit('SET_ALERT', ['message', 'Не правильный логин или пароль']);
       }
     }).catch(error => {
-      commit('SET_ALERT', ['error', error.response.data.message]);
+      console.log(error);
+      commit('SET_ALERT', ['message', 'Не правильный логин или пароль']);
     });
   },
 
@@ -306,6 +307,24 @@ let actions = {
       console.log(error);
       commit('SET_ALERT', ['error', error.response.data.message]);
     })
+  },
+
+  getAnalResult({commit}, data) {
+    console.log(data);
+    axios({
+      method: "post",
+      url: `${host_anal}/analytics/result`,
+      data: data,
+      headers: {
+        Accept: 'application/json',
+        'Content-type': "application/json; charset=UTF-8",
+      }
+    }).then(res => {
+      commit('SET_STATE', ['data_anal_result', res.data])
+      commit('SET_STATE', ['load_resource', true]);
+    }).catch(error => {
+      console.log(error);
+    });
   },
 
   getUserBuys({commit}, data) {

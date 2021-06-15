@@ -26,6 +26,8 @@ export default createStore({
     },
     token: null,
     data_anal: {},
+    data_anal_package: {},
+    data_anal_result: {},
     market: {},
     rating: {},
     my_product: {},
@@ -38,6 +40,7 @@ export default createStore({
     SET_STATE(state, data) {
       state[data[0]] = data[1];
     },
+
     SET_ALERT(state, data) {
       state._alert = {
         flag: true,
@@ -45,6 +48,7 @@ export default createStore({
         message: data[1]
       }
     },
+
     SET_AlertFlag(state, value) {
       state._alert.flag = value;
     },
@@ -56,6 +60,7 @@ export default createStore({
     SET_Market(state, data) {
       state.market[data[0]] = data[1];
     },
+
     SET_Market_Product(state, data) {
       state.market.products = data;
     }

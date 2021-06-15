@@ -15,7 +15,7 @@
             </router-link>
 
             <router-link to="/market/all" active-class="active" class="up_menu">
-              <button><cite>DATA</cite></button>
+              <button><cite>MARKET</cite></button>
             </router-link>
 
             <router-link to="/analytics" active-class="active" class="up_menu">

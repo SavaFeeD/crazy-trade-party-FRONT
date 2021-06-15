@@ -258,6 +258,8 @@ export default {
         data.charts.push(_chart_);
       });
 
+      this.$store.state.data_anal_package = data
+
       console.log(data);
     },
 
